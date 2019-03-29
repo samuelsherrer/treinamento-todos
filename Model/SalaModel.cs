@@ -11,9 +11,12 @@ namespace DevWebBasico.Model
     public class SalaModel : ValidationAttribute
     {
         public int Id { get; set; }
-        
+
         [Required(ErrorMessage = "Nome obrigatório")]
         public string Nome { get; set; }
+
+        [Required(ErrorMessage = "Capacidade Obrigatória")]
+        public int Capacidade { get; set; }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

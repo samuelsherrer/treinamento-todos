@@ -1,8 +1,10 @@
 using System;
 
-namespace DevWebBasico.Dominio {
+namespace DevWebBasico.Dominio
+{
 
-    public class Evento: Base {
+    public class Evento : Base
+    {
         public Evento(string nome, DateTime dataInicio, DateTime dataFim, int salaId)
         {
             this.Nome = nome;
@@ -18,19 +20,23 @@ namespace DevWebBasico.Dominio {
         public int SalaId { get; private set; }
         public DateTime DataCadastro { get; private set; }
 
-        public void SetNome(string nome){
+        public void SetNome(string nome)
+        {
             this.Nome = nome;
         }
 
-        public void SetDataInicio(DateTime dataInicio){
+        public void SetDataInicio(DateTime dataInicio)
+        {
             this.DataInicio = dataInicio;
         }
 
-        public void SetDataFim(DateTime dataFim){
+        public void SetDataFim(DateTime dataFim)
+        {
             this.DataFim = dataFim;
         }
 
-        public void SelecionarSala(int salaId){
+        public void SelecionarSala(int salaId)
+        {
             this.SalaId = salaId;
         }
     }

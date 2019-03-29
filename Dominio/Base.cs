@@ -1,6 +1,8 @@
-namespace DevWebBasico.Dominio {
+namespace DevWebBasico.Dominio
+{
 
-    public class Base {
+    public class Base
+    {
         public int Id { get; private set; }
     }
 }

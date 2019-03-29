@@ -7,85 +7,99 @@ using DevWebBasico.Infra;
 using DevWebBasico.Model;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevWebBasico.Controllers {
-    [Route ("api/[controller]")]
+namespace DevWebBasico.Controllers
+{
+    [Route("api/[controller]")]
     [ApiController]
-    public class SalaController : Controller {
+    public class SalaController : Controller
+    {
         private readonly Contexto _contexto;
 
-        public SalaController (Contexto contexto) {
+        public SalaController(Contexto contexto)
+        {
             this._contexto = contexto;
         }
 
         [HttpGet]
-        [Produces (typeof (IEnumerable<Sala>))]
-        public IActionResult Get () {
+        [Produces(typeof(IEnumerable<Sala>))]
+        public IActionResult Get()
+        {
 
-            var salas = this._contexto.Sala.ToList ();
+            var salas = this._contexto.Sala.ToList();
 
             if (salas.Count == 0)
-                return NotFound ();
+                return NotFound();
 
-            return Ok (salas);
+            return Ok(salas);
         }
 
-        [HttpGet ("{id}")]
-        [Produces (typeof (Sala))]
-        public IActionResult Get (int id) {
+        [HttpGet("{id}")]
+        [Produces(typeof(Sala))]
+        public IActionResult Get(int id)
+        {
 
-            var sala = this._contexto.Sala.Where (a => a.Id == id).ToList ();
+            var sala = this._contexto.Sala.Where(a => a.Id == id).FirstOrDefault();
 
-            if (sala != null)
-                return NotFound ();
+            if (sala == null)
+                return NotFound();
 
-            return Ok (sala);
+            return Ok(sala);
         }
 
         [HttpPost]
-        [Produces (typeof (Sala))]
-        public IActionResult Post ([FromBody] SalaModel salaModel) {
-            
-            if (!ModelState.IsValid)
-                return BadRequest (ModelState);
+        [Produces(typeof(Sala))]
+        public IActionResult Post([FromBody] SalaModel salaModel)
+        {
 
-            Sala sala = new Sala(salaModel.Nome);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            Sala sala = new Sala(salaModel.Nome, salaModel.Capacidade);
 
             this._contexto.Add(sala);
 
-            this._contexto.SaveChanges ();
+            this._contexto.SaveChanges();
 
-            return Created ("sala inserido com sucesso.", sala);
+            return Created("sala inserido com sucesso.", sala);
         }
 
         [HttpPut]
-        [Produces (typeof (Sala))]
-        public IActionResult Put ([FromBody] SalaModel salaModel) {
+        [Produces(typeof(Sala))]
+        public IActionResult Put([FromBody] SalaModel salaModel)
+        {
             if (!ModelState.IsValid)
-                return BadRequest (ModelState);
+                return BadRequest(ModelState);
 
-            var sala = this._contexto.Sala.FirstOrDefault (e => e.Id == salaModel.Id);
+            var sala = this._contexto.Sala.FirstOrDefault(e => e.Id == salaModel.Id);
 
             if (sala == null)
-                return NotFound ();
+                return NotFound();
 
-            this._contexto.Update (sala);
+            sala.Atualizar(salaModel.Nome, salaModel.Capacidade);
 
-            return Ok ("Registro atualizado com sucesso");
+            this._contexto.Update(sala);
+
+            this._contexto.SaveChanges();
+
+            return Ok("Registro atualizado com sucesso");
         }
 
-        [HttpDelete ("{id}")]
-        public IActionResult Delete (int id) {
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
             if (id <= 0)
-                return NotFound ();
+                return NotFound();
 
-            var sala = this._contexto.Sala.FirstOrDefault (e => e.Id == id);
+            var sala = this._contexto.Sala.FirstOrDefault(e => e.Id == id);
 
             if (sala == null)
-                return NotFound ();
+                return NotFound();
 
-            this._contexto.Remove (sala);
+            this._contexto.Remove(sala);
 
-            return Ok ();
+            this._contexto.SaveChanges();
+
+            return Ok();
         }
     }
 }

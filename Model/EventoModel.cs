@@ -6,19 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace DevWebBasico.Model {
-    public class EventoModel : IValidatableObject {
+namespace DevWebBasico.Model
+{
+    public class EventoModel : IValidatableObject
+    {
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Nome obrigatório")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Data inicio obrigatória")]
-        [DataType (DataType.DateTime)]
+        [DataType(DataType.DateTime)]
         public DateTime DataInicio { get; set; }
 
         [Required(ErrorMessage = "Data inicio obrigatória")]
-        [DataType (DataType.DateTime)]
+        [DataType(DataType.DateTime)]
         public DateTime DataFim { get; set; }
 
         [Required(ErrorMessage = "Favor informar uma sala.")]

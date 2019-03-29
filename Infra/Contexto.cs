@@ -7,7 +7,7 @@ namespace DevWebBasico.Infra
     {
         public Contexto(DbContextOptions<Contexto> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Sala> Sala { get; set; }
