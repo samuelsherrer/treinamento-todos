@@ -29,7 +29,7 @@ namespace DevWebBasico.Model
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (DataFim < DataInicio)
-                yield return new ValidationResult("Código do sistema inválido", new[] { nameof(DataFim), nameof(DataInicio) });
+                yield return new ValidationResult("Data de fim não pode ser menor que a data de inicio.", new[] { nameof(DataFim), nameof(DataInicio) });
         }
     }
 }
