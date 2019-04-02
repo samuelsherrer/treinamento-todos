@@ -28,6 +28,8 @@ namespace DevWebBasico
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<Contexto>(options => options.UseSqlServer(Configuration.GetConnectionString("Treinamento")));
@@ -46,15 +48,11 @@ namespace DevWebBasico
                     }
                 );
             });
-
-            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -65,6 +63,9 @@ namespace DevWebBasico
                 app.UseHsts();
             }
 
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             // app.UseHttpsRedirection();
             app.UseMvc();
             
@@ -73,9 +74,6 @@ namespace DevWebBasico
             {
                 c.SwaggerEndpoint("/treinamento/swagger/v1/swagger.json", "Treinamento TODOS");
             });
-
-            app.UseCors(builder =>
-                builder.AllowAnyOrigin());
-            }
+        }
     }
 }
