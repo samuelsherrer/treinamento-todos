@@ -60,14 +60,14 @@ namespace DevWebBasico.Controllers
             return Created("Evento inserido com sucesso.", evento);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [Produces(typeof(Evento))]
-        public IActionResult Put([FromBody] EventoModel eventoModel)
+        public IActionResult Put(int id, [FromBody] EventoModel eventoModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var evento = this._contexto.Evento.FirstOrDefault(e => e.Id == eventoModel.Id);
+            var evento = this._contexto.Evento.FirstOrDefault(e => e.Id == id);
 
             if (evento == null)
                 return NotFound();
@@ -80,7 +80,7 @@ namespace DevWebBasico.Controllers
 
             this._contexto.SaveChanges();
 
-            return Ok("Registro atualizado com sucesso");
+            return Ok(evento);
         }
 
         [HttpDelete("{id}")]

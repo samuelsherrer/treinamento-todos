@@ -54,7 +54,7 @@ namespace DevWebBasico.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            Sala sala = new Sala(salaModel.Nome, salaModel.Capacidade);
+            Sala sala = new Sala(salaModel.Nome, salaModel.Capacidade, salaModel.PossuiProjetor, salaModel.PossuiTV);
 
             this._contexto.Add(sala);
 
@@ -63,25 +63,25 @@ namespace DevWebBasico.Controllers
             return Created("sala inserido com sucesso.", sala);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [Produces(typeof(Sala))]
-        public IActionResult Put([FromBody] SalaModel salaModel)
+        public IActionResult Put(int id, [FromBody] SalaModel salaModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var sala = this._contexto.Sala.FirstOrDefault(e => e.Id == salaModel.Id);
+            var sala = this._contexto.Sala.FirstOrDefault(e => e.Id == id);
 
             if (sala == null)
                 return NotFound();
 
-            sala.Atualizar(salaModel.Nome, salaModel.Capacidade);
+            sala.Atualizar(salaModel.Nome, salaModel.Capacidade, salaModel.PossuiProjetor, salaModel.PossuiTV);
 
             this._contexto.Update(sala);
 
             this._contexto.SaveChanges();
 
-            return Ok("Registro atualizado com sucesso");
+            return Ok(sala);
         }
 
         [HttpDelete("{id}")]

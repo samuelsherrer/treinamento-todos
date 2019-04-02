@@ -4,14 +4,16 @@ using DevWebBasico.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DevWebBasico.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20190402203451_PossuiProjetorPossuiTV")]
+    partial class PossuiProjetorPossuiTV
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +35,10 @@ namespace DevWebBasico.Migrations
 
                     b.Property<string>("Nome");
 
+                    b.Property<bool>("PossuiProjetor");
+
+                    b.Property<bool>("PossuiTV");
+
                     b.Property<int>("SalaId");
 
                     b.HasKey("Id");
@@ -50,13 +56,7 @@ namespace DevWebBasico.Migrations
 
                     b.Property<int>("Capacidade");
 
-                    b.Property<DateTime>("DataCadastro");
-
                     b.Property<string>("Nome");
-
-                    b.Property<bool>("PossuiProjetor");
-
-                    b.Property<bool>("PossuiTV");
 
                     b.HasKey("Id");
 

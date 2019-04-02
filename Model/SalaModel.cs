@@ -18,6 +18,10 @@ namespace DevWebBasico.Model
         [Required(ErrorMessage = "Capacidade Obrigatória")]
         public int Capacidade { get; set; }
 
+        public bool PossuiProjetor { get; set; }
+
+        public bool PossuiTV { get; set; }
+
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             SalaModel eventView = (SalaModel)validationContext.ObjectInstance;
