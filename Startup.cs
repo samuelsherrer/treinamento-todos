@@ -46,6 +46,8 @@ namespace DevWebBasico
                     }
                 );
             });
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +73,9 @@ namespace DevWebBasico
             {
                 c.SwaggerEndpoint("/treinamento/swagger/v1/swagger.json", "Treinamento TODOS");
             });
-        }
+
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin());
+            }
     }
 }
